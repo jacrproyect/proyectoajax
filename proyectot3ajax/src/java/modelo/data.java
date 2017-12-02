@@ -24,9 +24,9 @@ public class data {
     }
     
     public Connection getMysql(){
-        String usuario="root";
-        String clave = "aseas123";
-        String url = "jdbc:mysql://localhost:3306/sowad";
+        String usuario="jacrproy_castill";
+        String clave = "jacrproyectosweb191295";
+        String url = "jdbc:mysql://jacrproyectosweb.com:3306/jacrproy_proyectot3-sowad";
 
 
         Connection con = null;

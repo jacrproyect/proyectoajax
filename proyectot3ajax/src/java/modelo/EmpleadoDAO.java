@@ -7,7 +7,7 @@ package modelo;
 
 
 import modelo.data;
-import modelo.EmpleadoMO;
+import entidades.EmpleadoMO;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
