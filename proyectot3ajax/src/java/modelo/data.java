@@ -19,6 +19,7 @@ import java.util.logging.Logger;
  */
 public class data {
     
+
     public data() {
     }
     
@@ -26,6 +27,8 @@ public class data {
         String usuario="root";
         String clave = "aseas123";
         String url = "jdbc:mysql://localhost:3306/sowad";
+
+
         Connection con = null;
         try {
             DriverManager.registerDriver(new Driver());
@@ -35,4 +38,5 @@ public class data {
         }
         return con;
     }
+
 }
