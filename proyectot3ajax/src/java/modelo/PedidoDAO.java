@@ -6,7 +6,7 @@
 package modelo;
 
 import entidades.EmpleadoMO;
-import entidades.ProductoMO;
+import entidades.PedidoMO;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,12 +20,10 @@ import java.util.logging.Logger;
  *
  * @author VAIO
  */
-public class ProductoDAO {
+public class PedidoDAO {
 
-    public ProductoDAO() {
+    public PedidoDAO() {
     }
-    
-    
     
     public String ContEmpleados(){
         String ob="";
@@ -47,7 +45,7 @@ public class ProductoDAO {
         
         return ob;
         } 
-     
+    
     public List<EmpleadoMO> obtener() {
         List<EmpleadoMO> lista= new ArrayList();
         
@@ -77,9 +75,15 @@ public class ProductoDAO {
         return lista;
     }
      
-    public int RegProducto(ProductoMO e) {
-	
-        String sql="INSERT INTO producto (`Nombre`, `Color`, `Stock`, `Precio_Compra`, `Precio_Venta`, `SubCategoria_idSubCategoria`, `SubCategoria_Categoria_idCategoria`, `Marca_idMarca`, `Proveedor_idProveedor`)  VALUES ('"+ e.getNombre() +"', '"+ e.getStock() +"', '"+ e.getPrecio_compra() +"','"+ e.getPrecio_venta() +"', '" + e.getSubCategoria()+ "', '"+e.getIdCategoria()+"', '"+e.getIdMarca()+"', '"+e.getIdProveedor()+"')";
+    public int RegPedido(PedidoMO e) {
+           
+
+        	
+        String sql="INSERT INTO persona (Nombre, Apellido, DNI, Telefono, Departamento, Provincia, Distrito, Direccion, Correo) VALUES ('"+ e.getNombre_persona() +"', '"+ e.getApellido_persona() +"', '"+ e.getDni() +"','"+ e.getTelefono() +"', '" + e.getDepartamento()+ "', '"+e.getProvincia()+"', '"+e.getDistrito()+"', '"+e.getDireccion()+"', '"+e.getCorreo()+"')";
+        String sql1="INSERT INTO persona (Nombre, Apellido, DNI, Telefono";
+        String sql2="INSERT INTO persona (Nombre, Apellido, DNI, Telefon";
+
+
         
         int r=0;
              Connection c= new data().getMysql();
@@ -89,9 +93,10 @@ public class ProductoDAO {
         try {
             st = c.createStatement();
               r=st.executeUpdate(sql);
-       
+              r=st.executeUpdate(sql1);
+              r=st.executeUpdate(sql2);
         } catch (SQLException ex) {
-            Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmpleadoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
       
         
