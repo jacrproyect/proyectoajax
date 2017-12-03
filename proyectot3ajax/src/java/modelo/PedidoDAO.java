@@ -79,9 +79,12 @@ public class PedidoDAO {
            
 
         	
-        String sql="INSERT INTO persona (Nombre, Apellido, DNI, Telefono, Departamento, Provincia, Distrito, Direccion, Correo) VALUES ('"+ e.getNombre_persona() +"', '"+ e.getApellido_persona() +"', '"+ e.getDni() +"','"+ e.getTelefono() +"', '" + e.getDepartamento()+ "', '"+e.getProvincia()+"', '"+e.getDistrito()+"', '"+e.getDireccion()+"', '"+e.getCorreo()+"')";
-        String sql1="INSERT INTO persona (Nombre, Apellido, DNI, Telefono";
-        String sql2="INSERT INTO persona (Nombre, Apellido, DNI, Telefon";
+                                                                                                                                                                                                         
+        String sql="INSERT INTO pedido (`FechaPedido`, `FechaEnvio`, `MedioEnvio`, `Departamento`, `Provincia`, `Distrito`, `Direcccion`, `CodigoPostal`, `cliente_persona_idPersona`) VALUES ('"+ e.getFechaPedido() +"', '"+ e.getFechaEnvio()+"', '"+ e.getMedioEnvio()+"','"+ e.getDepartamentopedido()+"', '" + e.getProvinciapedido()+ "', '"+e.getDistritopedido()+"', '"+e.getDireccionpedido()+"', '"+e.getDireccion()+"','"+e.getCodigopostal()+"', '"+e.getIdpersona()+"')";
+        String sql1= "INSERT INTO detallepedido (`Producto_idProducto`, `Pedido_idPedido`, `PrecioUnit`, `Cantidad`, `Descuento`, `Estado_idEstado`)  VALUES ('"+e.getIdproducto()+"','"+e.getIdPedido()+"','"+e.getPreciounit()+"','"+e.getCantidad()+"','"+e.getDescuento()+"','"+e.getEstado()+"')";
+        
+        
+        String sql2="INSERT INTO noveltystoremovil.factura (`TotalVenta`, `NumeroFactura`, `detallepedido_Producto_idProducto`, `detallepedido_Pedido_idPedido`) VALUES ('"+e.getIdproducto()+"','"+e.getIdPedido()+"','"+e.getPreciounit()+"','"+e.getCantidad()+"','"+e.getDescuento()+"','"+e.getEstado()+"')";
 
 
         
