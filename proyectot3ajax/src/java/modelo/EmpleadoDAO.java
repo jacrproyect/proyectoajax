@@ -78,8 +78,14 @@ public class EmpleadoDAO {
     public int RegEmpleado(EmpleadoMO e) {
            
 
-        String sql="INSERT INTO empleado (COD_EMP,COD_CARG,NOM_EMP,APE_EMP,DNI_EMP,OTROS,FECHA,ESTADO) values ('"+e.getIdpersona()+"','"+e.getAcceso()+"','"+e.getNombre_persona()+"','"+e.getApellido_persona()+"','"+e.getDni()+"')";		
-         int r=0;
+        	
+        String sql="INSERT INTO persona (Nombre, Apellido, DNI, Telefono, Departamento, Provincia, Distrito, Direccion, Correo) VALUES ('"+ e.getNombre_persona() +"', '"+ e.getApellido_persona() +"', '"+ e.getDni() +"','"+ e.getTelefono() +"', '" + e.getDepartamento()+ "', '"+e.getProvincia()+"', '"+e.getDistrito()+"', '"+e.getDireccion()+"', '"+e.getCorreo()+"')";
+        String sql1= "INSERT INTO empleado (Sueldo,persona_idPersona,rol_idRol) VALUES ('"+e.getSueldo()+"','"+e.getIdpersona()+"', '"+e.getIdrol()+"')";
+        String sql2= "INSERT INTO usuario (`Usuario`, `Password`, `FechaReg`, `EstadoUsu`, `empleado_persona_idPersona`)  VALUES ('"+e.getUsuario()+"', '"+e.getPassword()+"', '"+e.getFechreg()+"', '"+e.getEstado()+"','"+e.getId_empleado()+"' )";
+
+
+        
+        int r=0;
              Connection c= new data().getMysql();
      
         
@@ -87,6 +93,8 @@ public class EmpleadoDAO {
         try {
             st = c.createStatement();
               r=st.executeUpdate(sql);
+              r=st.executeUpdate(sql1);
+              r=st.executeUpdate(sql2);
         } catch (SQLException ex) {
             Logger.getLogger(EmpleadoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
