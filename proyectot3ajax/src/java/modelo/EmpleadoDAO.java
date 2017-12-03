@@ -6,7 +6,6 @@
 package modelo;
 
 
-import modelo.data;
 import entidades.EmpleadoMO;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -47,7 +46,7 @@ public class EmpleadoDAO {
         return ob;
         } 
      
-      public List<EmpleadoMO> obtener() {
+    public List<EmpleadoMO> obtener() {
         List<EmpleadoMO> lista= new ArrayList();
         
         String sql="select e.nom_emp as Nombre,e.ape_emp as Apellidos,e.dni_emp as Dni,e.OTROS as Tipo,e.FECHA AS FRegistro,c.DESC_CARGO as Cargo from tb_empleado e inner join TB_CARGOEMP c on e.COD_CARG=c.COD_CAREMP where e.estado='ACTIVO'" ;
@@ -76,10 +75,10 @@ public class EmpleadoDAO {
         return lista;
     }
      
-       public int RegEmpleado(EmpleadoMO e) {
+    public int RegEmpleado(EmpleadoMO e) {
            
 
-        String sql="INSERT INTO TB_EMPLEADO(COD_EMP,COD_CARG,NOM_EMP,APE_EMP,DNI_EMP,OTROS,FECHA,ESTADO) values ('"+e.getIdpersona()+"','"+e.getAcceso()+"','"+e.getNombre_persona()+"','"+e.getApellido_persona()+"','"+e.getDni()+"')";		
+        String sql="INSERT INTO empleado (COD_EMP,COD_CARG,NOM_EMP,APE_EMP,DNI_EMP,OTROS,FECHA,ESTADO) values ('"+e.getIdpersona()+"','"+e.getAcceso()+"','"+e.getNombre_persona()+"','"+e.getApellido_persona()+"','"+e.getDni()+"')";		
          int r=0;
              Connection c= new data().getMysql();
      
@@ -97,7 +96,7 @@ public class EmpleadoDAO {
                   
     }
        
-       public int ModificarEmpleado(EmpleadoMO e){
+    public int ModificarEmpleado(EmpleadoMO e){
         
           String sql="UPDATE tb_empleado set tb_empleado.NOM_EMP='"+e.getNombre_persona()+"' , tb_empleado.APE_EMP='"+e.getApellido_persona()+"' WHERE tb_empleado.DNI_EMP='"+e.getDni()+"' ";
               int r=0;
@@ -120,7 +119,7 @@ public class EmpleadoDAO {
         
         }
     
-        public int descativarEmpleado(EmpleadoMO e){
+    public int descativarEmpleado(EmpleadoMO e){
        String sql="UPDATE tb_empleado set tb_empleado.ESTADO='INACTIVO' WHERE tb_empleado.DNI_EMP='"+e.getDni()+"' ";
             
         int r=0;
@@ -139,6 +138,4 @@ public class EmpleadoDAO {
     return r;
     
         }
-    
-    
 }
