@@ -5,7 +5,7 @@
  */
 package modelo;
 
-import entidades.ClienteMO;
+import entidades.ProveedorMO;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,14 +15,16 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *
+ * @author VAIO
+ */
+public class ProveedorDAO {
 
-public class ClienteDAO {
-
-    public ClienteDAO() {
+    public ProveedorDAO() {
     }
     
-    
-    public String ContCliente(){
+     public String ContEmpleados(){
         String ob="";
         
            String sql="select count(COD_EMP) as Total from TB_EMPLEADO";
@@ -36,15 +38,15 @@ public class ClienteDAO {
            ob=rs.getString(1);
            
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmpleadoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
         return ob;
         } 
      
-    public List<ClienteMO> obtener() {
-        List<ClienteMO> lista= new ArrayList();
+    public List<ProveedorMO> obtener() {
+        List<ProveedorMO> lista= new ArrayList();
         
         String sql="select e.nom_emp as Nombre,e.ape_emp as Apellidos,e.dni_emp as Dni,e.OTROS as Tipo,e.FECHA AS FRegistro,c.DESC_CARGO as Cargo from tb_empleado e inner join TB_CARGOEMP c on e.COD_CARG=c.COD_CAREMP where e.estado='ACTIVO'" ;
          Connection c= new data().getMysql();
@@ -54,24 +56,21 @@ public class ClienteDAO {
             Statement st=c.createStatement();
             ResultSet rs=st.executeQuery(sql);
             while(rs.next()){
-            ClienteMO e=new ClienteMO();
-            e.setNombre_persona(rs.getString(1));
-            e.setApellido_persona(rs.getString(2));
-            e.setDni(rs.getString(3));
-            e.setTelefono(rs.getInt(4));
-            e.setDireccion(rs.getString(5));
-            e.setDistrito(rs.getString(6));
-            e.setProvincia(rs.getString(7));
-            e.setDepartamento(rs.getString(8)); 
-            e.setCorreo(rs.getString(9));
-            e.setRuc(rs.getString(11));
-            e.setRazon_social(rs.getString(12));
-  
+            ProveedorMO e=new ProveedorMO();
+            e.setRazonsocial(rs.getString(1));
+            e.setDireccion(rs.getString(2));
+            e.setSitioweb(rs.getString(3));
+            e.setTelefono(rs.getString(4));
+            e.setObservaciones(rs.getString(5));
+            e.setFechareg(rs.getDate(6));
+            e.setCorreo(rs.getString(7));
+            e.setContacto(rs.getString(8));
+          
             lista.add(e);
             
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmpleadoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
             
@@ -79,22 +78,24 @@ public class ClienteDAO {
         return lista;
     }
      
-    public int RegCliente(ClienteMO e) {
+    public int Regproveedor(ProveedorMO e) {
            
 
-        String sql="INSERT INTO persona (Nombre, Apellido, DNI, Telefono, Departamento, Provincia, Distrito, Direccion, Correo) VALUES ('"+ e.getNombre_persona() +"', '"+ e.getApellido_persona() +"', '"+ e.getDni() +"','"+ e.getTelefono() +"', '" + e.getDepartamento()+ "', '"+e.getProvincia()+"', '"+e.getDistrito()+"', '"+e.getDireccion()+"', '"+e.getCorreo()+"')";
-         String sql1= "INSERT INTO cliente (`RUC`, `RazonSocial`, `persona_idPersona`,estado)  VALUES ('"+e.getRuc()+"','"+e.getRazon_social()+"',(select idPersona from persona order by idPersona desc limit 1),'"+e.getEstado()+"')";
+        	
+        String sql="INSERT INTO proveedor (`RazonSocial`, `Direccion`, `SitioWeb`, `Correo`, `Telefono`, `Observaciones`, `FechaReg`, `Contacto`)  VALUES ('"+ e.getRazonsocial() +"', '"+ e.getDireccion() +"', '"+ e.getSitioweb() +"', '"+ e.getCorreo() +"', '"+e.getTelefono()+"', '"+e.getObservaciones()+"', '"+e.getFechareg()+"', '"+e.getContacto()+"')";
+       
         
-         int r=0;
+        int r=0;
              Connection c= new data().getMysql();
      
+        
         Statement st;
         try {
             st = c.createStatement();
-             r=st.executeUpdate(sql);
-             r=st.executeUpdate(sql1);
+              r=st.executeUpdate(sql);
+              
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmpleadoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
       
         
@@ -102,9 +103,9 @@ public class ClienteDAO {
                   
     }
        
-    public int ModificarEmpleado(ClienteMO e){
+    public int ModificarEmpleado(ProveedorMO e){
         
-          String sql="UPDATE tb_empleado set tb_empleado.NOM_EMP='"+e.getNombre_persona()+"' , tb_empleado.APE_EMP='"+e.getApellido_persona()+"' WHERE tb_empleado.DNI_EMP='"+e.getDni()+"' ";
+          String sql="UPDATE tb_empleado set tb_empleado.NOM_EMP='"+e.getRazonsocial()+"' , tb_empleado.APE_EMP='"+e.getContacto()+"' WHERE tb_empleado.DNI_EMP='"+e.getIdproveedor()+"' ";
               int r=0;
              Connection c= new data().getMysql();
      
@@ -114,7 +115,7 @@ public class ClienteDAO {
             st = c.createStatement();
               r=st.executeUpdate(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmpleadoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
       
         
@@ -125,8 +126,8 @@ public class ClienteDAO {
         
         }
     
-    public int descativarEmpleado(ClienteMO e){
-       String sql="UPDATE tb_empleado set tb_empleado.ESTADO='INACTIVO' WHERE tb_empleado.DNI_EMP='"+e.getDni()+"' ";
+    public int descativarEmpleado(ProveedorMO e){
+       String sql="UPDATE tb_empleado set tb_empleado.ESTADO='INACTIVO' WHERE tb_empleado.DNI_EMP='"+e.getIdproveedor()+"' ";
             
         int r=0;
              Connection c= new data().getMysql();
@@ -137,18 +138,13 @@ public class ClienteDAO {
             st = c.createStatement();
               r=st.executeUpdate(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmpleadoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
       
         
     return r;
     
         }
-    
-    
-    
-    
-    
     
     
 }

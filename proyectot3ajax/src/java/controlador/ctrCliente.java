@@ -7,16 +7,14 @@ package controlador;
 
 
 import entidades.ClienteMO;
-import entidades.EmpleadoMO;
 import modelo.ClienteDAO;
-import modelo.EmpleadoDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+@Controller
 public class ctrCliente {
     
     
@@ -31,16 +29,16 @@ public class ctrCliente {
                           @RequestParam("cmbdepartamento") String departamento,
                           @RequestParam("cmbprovincia") String provincia,
                           @RequestParam("cmbdistrito") String distrito,
-                          @RequestParam("cmbdistrito") String correo,
-                          @RequestParam("txtusuario") String usuario,
-                          @RequestParam("txtcontrasena") String contrasena,
-                          @RequestParam("cmbtipoempleado") String tipoempleado, 
+                          @RequestParam("txtruc") String RazonSocial,
+                          @RequestParam("txtRazonSocial") String Ruc,
+                          @RequestParam("txtEstado") String Estado,
+           
                           Model m)
         {
             if (nombre.trim().equals("") || apellido.trim().equals("") || dni.trim().equals("") || 
             direccion.trim().equals("") || telefono.trim().equals("") || email.trim().equals("") ||
             departamento.trim().equals("") || provincia.trim().equals("") || distrito.trim().equals("") ||
-            usuario.trim().equals("") || contrasena.trim().equals("") || tipoempleado.trim().equals("")) 
+            RazonSocial.trim().equals("") || Ruc.trim().equals("") || Estado.trim().equals("")) 
             {
                 return "vacio";
             }
@@ -59,11 +57,11 @@ public class ctrCliente {
             e.setDepartamento(departamento);
             e.setProvincia(provincia);
             e.setDistrito(distrito);
-            e.setCorreo(correo);
-            e.setRuc(usuario);
-            e.setRazon_social(contrasena);
-         
+            e.setRazon_social(RazonSocial);
+            e.setRuc(Ruc);
+            e.setEstado(Estado);
             
+       
             int ax = edao.RegCliente(e);
             
             
