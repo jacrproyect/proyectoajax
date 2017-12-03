@@ -45,7 +45,7 @@ public class EmpleadoDAO {
         
         return ob;
         } 
-     
+    
     public List<EmpleadoMO> obtener() {
         List<EmpleadoMO> lista= new ArrayList();
         
